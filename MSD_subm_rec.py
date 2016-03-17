@@ -31,7 +31,7 @@ import MSD_util,MSD_rec
 user_min=10 #int(user_min)
 user_max=100 #int(user_max)
 # path to the outpuut file kaggle_songs.txt
-osfile = "/"
+osfile = "output.txt"
 print ("user_min: %d , user_max: %d"%(user_min,user_max))
 sys.stdout.flush() #forces it to "flush" the buffer, meaning that it will write everything in the buffer to the terminal
 
