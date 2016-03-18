@@ -20,11 +20,11 @@ f_triplets_tev="testV.txt" #1450933 triplets for recommendation evaluation, with
 f_triplets_teh = "testH.txt"
 print ('loading users in %s'%"kaggle_users.txt")
 sys.stdout.flush()
-#users_v=list(MSD_util.load_users("kaggle_users.txt"))
+users_v=list(MSD_util.load_users("kaggle_users.txt"))
 
 print ('default ordering by popularity')
 sys.stdout.flush()
-#songs_ordered=MSD_util.sort_dict_dec(MSD_util.song_to_count(f_triplets_tr)) # song_to_count creates a dictionary (song,count) and then it sorts the dict in decresing order
+songs_ordered=MSD_util.sort_dict_dec(MSD_util.song_to_count(f_triplets_tr)) # song_to_count creates a dictionary (song,count) and then it sorts the dict in decresing order
 
 print  ("loading unique users indexes")
 uu = MSD_util.unique_users(f_triplets_tr) #unique_users returns a set of unique users in the train_triplets

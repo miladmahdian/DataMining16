@@ -11,24 +11,24 @@ def make_test_file():
             user,_,_=line.strip().split('\t')
             if random.random()< 0.9:
                 if not user in stestu:
-                    train.write(line+"\n")
+                    train.write(line)
                     if not user in strainu:
                         strainu.append(user)
                 else:
                     if not random.random() < 0.5:
-                         testV.write(line+"\n")
+                         testV.write(line)
                     else:
-                         testH.write(line+"\n")
+                         testH.write(line)
             else:
                 if not user in strainu:
                     if not random.random() < 0.5:
-                         testV.write(line+"\n")
+                         testV.write(line)
                     else:
-                         testH.write(line+"\n")
+                         testH.write(line)
                     if not user in stestu:
                          stestu.append(user)
                 else:
-                    train.write(line+"\n")
+                    train.write(line)
 
 
 

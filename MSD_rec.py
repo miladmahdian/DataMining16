@@ -204,49 +204,57 @@ class SReco(Reco):
                 r.append(s)
             ii[pi]+=1
         return r
-
+#T is the number of batches of users you can recommend songs to
+#users_te the list of users you want to recommend songs to
     def Valid(self, T, users_te, u2s_v, u2s_h, n_batch=10):
         ave_AP=0.0
-        for t in range(T):
-            rusers = users_te[t*n_batch:(t+1)*n_batch]
-            rec=[]
-            start=time.clock()
-            for i,ru in enumerate(rusers):
-                if ru in u2s_v:
-                    print ("%d] scoring user %s with %d songs"%(i,ru,len(u2s_v[ru])))
-                else:
-                    print ("%d] scoring user %s with 0 songs"%(i,ru))
-                fl()
-                songs_sorted=[]
-                for p in self.predictors:
-                    ssongs=[]
+        with open('output_eval.txt', 'w') as f:
+            for t in range(T):
+                rusers = users_te[t*n_batch:(t+1)*n_batch]
+                rec=[]
+                start=time.clock()
+                for i,ru in enumerate(rusers):
                     if ru in u2s_v:
-                        ssongs=MSD_util.sort_dict_dec(p.Score(u2s_v[ru],self.all_songs))
+                        print ("%d] scoring user %s with %d songs"%(i,ru,len(u2s_v[ru])))
+                        f.write("%d] scoring user %s with %d songs"%(i,ru,len(u2s_v[ru])))
                     else:
-                        ssongs=list(self.all_songs)
+                        print ("%d] scoring user %s with 0 songs"%(i,ru))
+                        f.write("%d] scoring user %s with 0 songs"%(i,ru))
+                    fl()
+                    songs_sorted=[]
+                    for p in self.predictors:
+                        ssongs=[]
+                        if ru in u2s_v:
+                            ssongs=MSD_util.sort_dict_dec(p.Score(u2s_v[ru],self.all_songs))
+                        else:
+                            ssongs=list(self.all_songs)
                    
-                    cleaned_songs = []
-                    for x in ssongs:
-                        if len(cleaned_songs)>=self.tau: 
-                            break
-                        if ru not in u2s_v or x not in u2s_v[ru]:
-                             cleaned_songs.append(x)
+                        cleaned_songs = []
+                        for x in ssongs:
+                            if len(cleaned_songs)>=self.tau: 
+                                break
+                            if ru not in u2s_v or x not in u2s_v[ru]:
+                                cleaned_songs.append(x)
                                             
-                    songs_sorted+= [cleaned_songs]
+                        songs_sorted+= [cleaned_songs]
                     
-                rec += [self.GetStochasticRec(songs_sorted, self.Gamma)]
+                    rec += [self.GetStochasticRec(songs_sorted, self.Gamma)]
 
-            cti=time.clock()-start
-            print ("Processed in %f secs"%cti)
-            fl()
+                cti=time.clock()-start
+                print ("Processed in %f secs"%cti)
+                fl()
+                f.write("Processed in %f secs"%cti)
             # valuta la rec cn la map
-            map_cur = mAP(rusers,rec,u2s_h,self.tau)
-            ave_AP+=map_cur
-            print ("MAP(%d): %f (%f)"%(t,map_cur,ave_AP/(t+1)))
-            print
-            fl()
+                map_cur = mAP(rusers,rec,u2s_h,self.tau)
+                ave_AP+=map_cur
+                print ("MAP(%d): %f (%f)"%(t,map_cur,ave_AP/(t+1)))
+                print
+                fl()
+                f.write ("MAP(%d): %f (%f)\n"%(t,map_cur,ave_AP/(t+1)))
     
-        print ("Done!")
+            print ("Done!")
+            f.write("Done!")
+            f.close()
 # returns tau songs which are the most compatible to the user
     def RecommendToUser(self, user, u2s_v):
         songs_sorted=[]
