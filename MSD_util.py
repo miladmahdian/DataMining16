@@ -44,16 +44,19 @@ def make_test_file2():
     counter = 0
     prev_user = ""
     prev_action = ""
+    isOdd = True
     str = "train_triplets.txt"
     with open(str,"r") as read, open('train.txt', 'w') as train, open('testV.txt', 'w') as testV, open('testH.txt', 'w') as testH:
         for line in read:
             user,_,_=line.strip().split('\t')
             if user == prev_user:
                 if prev_action == "test":
-                    if random.random() < 0.5:
+                    if isOdd: #random.random() < 0.5:
                         testV.write(line)
+                        isOdd = False
                     else:
                         testH.write(line)
+                        isOdd = True
                 else:
                     train.write(line)
             else:
@@ -64,11 +67,12 @@ def make_test_file2():
                 else:
                     prev_action = "test"
                     counter += 1
-                    if random.random() < 0.5:
-
+                    if isOdd: # random.random() < 0.5:
                         testV.write(line)
+                        isOdd = False
                     else:
                         testH.write(line)
+                        isOdd = True
 
 
 

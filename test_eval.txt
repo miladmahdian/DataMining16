@@ -1,0 +1,69 @@
+loading users in kaggle_users.txt
+default ordering by popularity
+loading unique users indexes
+song to users on train.txt
+converting users to indexes
+user to songs on testV.txt
+Creating predictor..
+Creating recommender..
+0] scoring user ed3795c6b7803cea767e6173b7a03528acf4b881 with 46 songs
+1] scoring user 84db1eeba6c7a993db224ac0813b1937e5eb9bca with 5 songs
+2] scoring user b6c30d152fba51d922a7a378fb42656af3a29146 with 7 songs
+3] scoring user 01bd182f5c10e1d6dc48e870446f7c0f18061368 with 116 songs
+4] scoring user e15922884e93573b0ea4bcdcf48118209704eceb with 9 songs
+5] scoring user e523ea29a976f65edc0759c53ef1b46a75de7515 with 6 songs
+6] scoring user 3e9fbcde64b610bb5eee9e69542156a81c294736 with 21 songs
+7] scoring user a41588adf14b9cb2f73db0c25e013cf619dedc34 with 8 songs
+8] scoring user 0fb8f210dff9d2b9158821488d12e04445ec6d3a with 17 songs
+9] scoring user f69d901c0acc400b55c1df71e43d728dc82a3f62 with 8 songs
+Processed in 322.654064 secs
+MAP(0): 0.251376 (0.251376)
+0] scoring user d3d44c14cab22dcb2020d1e496412296a3c3859b with 13 songs
+1] scoring user 21f8d1a3ad4169a0bf4b945b5357aa15e289d032 with 9 songs
+2] scoring user dfa396d49495619a928d69357fa62540b866cc0e with 16 songs
+3] scoring user b33a802c03fe7fece49c0973f6a237dc8c4993a0 with 14 songs
+4] scoring user e6bd090480b6ab5fc688ef597ab06cc7398ba4de with 28 songs
+5] scoring user ee117d7aee4fb356bb82d993d88cc9c43ac63290 with 6 songs
+6] scoring user 0bf9eb7f9a53b2d7b1a276068f29db902af79eca with 9 songs
+7] scoring user e2a88f399cffe537e5823b83740d6eaa1ea579e4 with 23 songs
+8] scoring user 1b21022382ecdc33f66a77493a6c3573dc049958 with 29 songs
+9] scoring user 8c3f266db5626241e574d9bed85d128eb2811c6c with 20 songs
+Processed in 270.613460 secs
+MAP(1): 0.186732 (0.219054)
+0] scoring user 0cfac12c1703ad57cd6f649c02ad0129546900e6 with 14 songs
+1] scoring user b10152c70631c91089bd0fe5742be7761dc5e5b7 with 7 songs
+2] scoring user b98c825308b6f6a33a6326bb22554f4d62def6f4 with 6 songs
+3] scoring user 476ccdb0c49a51ac845875f1fcb038c3de4332d6 with 5 songs
+4] scoring user 945bfef9e6164ef4e8891f43e02c64da693a344b with 9 songs
+5] scoring user c7dc588e271e501c67fa191189a71d94be37c925 with 56 songs
+6] scoring user 8039560e751a2bd9b379c89290635764cfde8f8b with 11 songs
+7] scoring user 26b3271a2215ce6ca56492f7155e005ade539536 with 18 songs
+8] scoring user 7d0a3eaecf9648090ce8878eed722f8f7e641a7b with 10 songs
+9] scoring user 0e8fe53d0f3872a3f591e7ce1832a70b27999cad with 64 songs
+Processed in 405.520214 secs
+MAP(2): 0.285629 (0.241246)
+0] scoring user e11e2aab40771fe42b096c9f9957c380e93d8c9a with 5 songs
+1] scoring user 98ca09d774fe1447ee973a6cbf5a68384fbff174 with 19 songs
+2] scoring user 60b156f087fe4108df59873d4e493927631567f6 with 69 songs
+3] scoring user 39d97669fb5331ccf744f476a642c19c54cc3880 with 15 songs
+4] scoring user a6330d5ad357558d3e6dc32a9240050597bf6164 with 7 songs
+5] scoring user 20fbd5dfea17ec4a464a2c9b5a3d5f5bf5fdc1df with 6 songs
+6] scoring user b7ae803569262b9b6d02211d95129f9257ad6ef0 with 11 songs
+7] scoring user 3681c5fffbe6be4aa9b0cc93ae9286a083cd6cf0 with 41 songs
+8] scoring user 8b5d7525a4fb23fec8c21cf63d29164127be0b3d with 11 songs
+9] scoring user 0fe44dac9acd2f8205d4710dcbed5bc6aebf44d8 with 9 songs
+Processed in 327.071968 secs
+MAP(3): 0.147308 (0.217761)
+0] scoring user 245cb05bc0a6a4bee01ceb3ddf75ca74aa4b2f09 with 63 songs
+1] scoring user 4b6ff2d8aa7f55da3001d4b5062f036d39e0510b with 13 songs
+2] scoring user e455f8ad61edce6635abb199c341c5a5e8a165fc with 38 songs
+3] scoring user 1f13ca5ea9d26feb875cd668c4844039c3acd55b with 7 songs
+4] scoring user b4e5bccf72bd7369803729e3e227c328124e489e with 9 songs
+5] scoring user c0c4135265b61436619460eab32df121e6fe3f96 with 216 songs
+6] scoring user ad8ad3ddd2de60b2ef765cc6db1739934058dbf1 with 56 songs
+7] scoring user a33c1b47b6e631d15eed85773775c64be4ce807f with 18 songs
+8] scoring user 65d949b0d422629975210ba30a66fc817f3c9b0f with 55 songs
+9] scoring user 75512448b42b6dc67ad69c098f20a4bae78101ff with 22 songs
+Processed in 720.946563 secs
+MAP(4): 0.187871 (0.211783)
+Done!
