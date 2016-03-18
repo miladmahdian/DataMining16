@@ -1,6 +1,87 @@
 import random,time,math
 import sys,os
 
+
+def make_test_file():
+    stestu = [] # set of test users
+    strainu = []
+    str = "train_triplets.txt"
+    with open(str,"r") as read, open('training.txt', 'w') as train, open('testingV.txt', 'w') as testV, open('testingH.txt', 'w') as testH:
+        for line in read:
+            user,_,_=line.strip().split('\t')
+            if random.random()< 0.9:
+                if not user in stestu:
+                    train.write(line+"\n")
+                    if not user in strainu:
+                        strainu.append(user)
+                else:
+                    if not random.random() < 0.5:
+                         testV.write(line+"\n")
+                    else:
+                         testH.write(line+"\n")
+            else:
+                if not user in strainu:
+                    if not random.random() < 0.5:
+                         testV.write(line+"\n")
+                    else:
+                         testH.write(line+"\n")
+                    if not user in stestu:
+                         stestu.append(user)
+                else:
+                    train.write(line+"\n")
+
+
+
+    testV.close()
+    train.close()
+    testH.close()
+
+    print("the number of test users "+len(stestu))
+    print("the number of train users "+len(strainu))
+
+# faster way to do it
+def make_test_file2():
+    counter = 0
+    prev_user = ""
+    prev_action = ""
+    str = "train_triplets.txt"
+    with open(str,"r") as read, open('train.txt', 'w') as train, open('testV.txt', 'w') as testV, open('testH.txt', 'w') as testH:
+        for line in read:
+            user,_,_=line.strip().split('\t')
+            if user == prev_user:
+                if prev_action == "test":
+                    if random.random() < 0.5:
+                        testV.write(line)
+                    else:
+                        testH.write(line)
+                else:
+                    train.write(line)
+            else:
+                prev_user = user
+                if random.random()< 0.9:
+                    train.write(line)
+                    prev_action = "train"
+                else:
+                    prev_action = "test"
+                    counter += 1
+                    if random.random() < 0.5:
+
+                        testV.write(line)
+                    else:
+                        testH.write(line)
+
+
+
+
+    testV.close()
+    train.close()
+    testH.close()
+    print(counter)
+    #print("the number of test users "+len(stestu))
+    #print("the number of train users "+len(strainu))
+
+
+
 def song_to_count(if_str):
     stc=dict()
     with open(if_str,"r") as f:
