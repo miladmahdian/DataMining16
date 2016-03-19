@@ -3,6 +3,8 @@ import sys
 import MSD_util,MSD_rec
 
 # to make new test and train sets out of train_triplet
+#### ATTENTION
+# run this one time to create the files and then comment it
 #MSD_util.make_test_file2()
 
 
@@ -10,7 +12,7 @@ import MSD_util,MSD_rec
 #user_min=10 #int(user_min)
 #user_max=100 #int(user_max)
 # path to the outpuut file kaggle_songs.txt
-osfile = "output_milad.txt"
+osfile = "output.txt"
 #print ("user_min: %d , user_max: %d"%(user_min,user_max))
 sys.stdout.flush() #forces it to "flush" the buffer, meaning that it will write everything in the buffer to the terminal
 
