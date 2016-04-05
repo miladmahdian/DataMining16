@@ -56,7 +56,7 @@ def nmf(X, latent_features, max_iter=100, error_limit=1e-6, fit_error_limit=1e-6
             if curRes < error_limit or fit_residual < fit_error_limit:
                 break
 
-    return A, Y
+return A, Y
 
 lines = []
 with open("u.data","r") as f:
