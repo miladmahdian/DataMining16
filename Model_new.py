@@ -18,8 +18,8 @@ print("Mapping each song to unique Index");
 with open("kaggle_visible_evaluation_triplets.txt","r") as f:
         counter=0;
         for line in f:
-	    user,song,count=line.strip().split('\t')
-	    if song not in songs:
+            user,song,count=line.strip().split('\t')
+            if song not in songs:
                 songs[song] = counter;
                 counter = counter+1;
 I=[]
@@ -27,12 +27,12 @@ J=[]
 V=[]
 
 counter =0;
-a = np.zeros(shape=(len(users),len(songs)))
+#a = np.zeros(shape=(len(users),len(songs)))
 print("Creating Matrix");
 with open("kaggle_visible_evaluation_triplets.txt","r") as f:
         for line in f:
             user,song,count=line.strip().split('\t')
-            a[ users[user] ][ songs[song]] = count
+            #a[ users[user] ][ songs[song]] = count
             I.append(users[user])
             J.append(songs[song])
             V.append(count)
@@ -45,7 +45,7 @@ def nmf(X, latent_features, max_iter=100, error_limit=1e-6, fit_error_limit=1e-6
     Decompose X to A*Y
     """
     eps = 1e-5
-    print 'Starting NMF decomposition with {} latent features and {} iterations.'.format(latent_features, max_iter)
+    print('Starting NMF decomposition with {} latent features and {} iterations.'.format(latent_features, max_iter))
     X = X.toarray()  # I am passing in a scipy sparse matrix
 
     # mask
@@ -80,15 +80,15 @@ def nmf(X, latent_features, max_iter=100, error_limit=1e-6, fit_error_limit=1e-6
 
         # ==== evaluation ====
         if i % 5 == 0 or i == 1 or i == max_iter:
-            print 'Iteration {}:'.format(i),
+            print ('Iteration {}:'.format(i)),
             X_est = dot(A, Y)
             err = mask * (X_est_prev - X_est)
             fit_residual = np.sqrt(np.sum(err ** 2))
             X_est_prev = X_est
 
             curRes = linalg.norm(mask * (X - X_est), ord='fro')
-            print 'fit residual', np.round(fit_residual, 4),
-            print 'total residual', np.round(curRes, 4)
+            print ('fit residual'), np.round(fit_residual, 4),
+            print ('total residual'), np.round(curRes, 4)
             if curRes < error_limit or fit_residual < fit_error_limit:
                 break
 
@@ -98,4 +98,5 @@ nP, nQ = nmf(A, 2)
 
 k = np.dot(nP,nQ)
 
-print (np.subtract(a,k))
+
+#print (np.subtract(a,k))

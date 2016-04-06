@@ -68,6 +68,7 @@ print ('Creating recommender..')
 cp = MSD_rec.SReco(songs_ordered) # the input songs to the recommender is from the train_triplets.
 cp.Add(pr)
 cp.Gamma=[1.0] # the prob. on how to choose different predictors, here we only have one predictor so it's just [1.0]
+
 cp.Valid(10000, list(users_te),u2s_v,u2s_h) # this does the validation  
 #r=cp.RecommendToUsers(users_v[user_min:user_max],u2s_v)
 #MSD_util.save_recommendations(r,"kaggle_songs.txt",osfile) #saves the output in terms of 500 song indices for each user seperated by space and then each user by \n

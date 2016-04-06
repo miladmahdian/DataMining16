@@ -54,11 +54,12 @@ print("Mapping each song to unique Index");
 with open("kaggle_visible_evaluation_triplets.txt","r") as f:
         counter=0;
         for line in f:
-	    user,song,count=line.strip().split('\t')
-	    if song not in songs:
+            user,song,count=line.strip().split('\t')
+            if song not in songs:
                 songs[song] = counter;
                 counter = counter+1;
-
+print(len(users))
+print(len(songs))
 a = numpy.zeros(shape=(len(users),len(songs)))
 
 P= numpy.ones(shape=(len(users),2))
@@ -70,7 +71,7 @@ with open("kaggle_visible_evaluation_triplets.txt","r") as f:
             user,song,count=line.strip().split('\t')
             a[ users[user] ][ songs[song]] = count
 
-def matrix_factorization(R, P, Q, K, steps=10000, alpha=0.0002, beta=0.02):
+def matrix_factorization(R, P, Q, K, steps=10000, alpha=0.002, beta=0.02):
     Q = Q.T
     for step in xrange(steps):
         print(step)
@@ -98,8 +99,8 @@ nP, nQ = matrix_factorization(a, P, Q, 2)
 nQt = numpy.transpose(nQ)
 k = numpy.dot(nP,nQt)
 
-print a.shape;
-print k.shape;
+print (a.shape);
+print (k.shape);
             
 print (numpy.subtract(a,k))
             
