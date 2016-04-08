@@ -2,22 +2,46 @@ import CF_model
 import numpy as np
 #import ModelBased
 
-tr = "u.data"
-n_ratings = 100000
-n_items=1682
-n_users=943
+
 n_components=10
-X = np.empty((n_ratings,3,))
-#R = np.empty((n_users, n_items,))
+
 eta=0.01
 lamd=0.05
 count = 0
 MAX_ITER=10
+n_triplets = 0
+users = {};
+songs ={};
 
+output = open('newfile.txt','w');
+tr = "kaggle_visible_evaluation_triplets.txt";
+print("Mapping each user and song to unique Index");
+with open(tr,"r") as f:
+        user_counter=0;
+        song_counter=0;
+        lines = '';
+        for line in f:
+            n_triplets+= 1 
+            user,song,count=line.strip().split('\t')
+            if song not in songs:
+                songs[song] = song_counter;
+                song_counter = song_counter+1;
+                
+            if user not in users:
+                users[user] = user_counter;
+                user_counter = user_counter+1;
+
+            output.write( str(users[user]) +'\t'+ str(songs[song]) + '\t' + count)
+                
+        print("Created Tested and Training Files");
+        output.close();
+print("number of triplets is %d"%n_triplets) 
+X = np.empty((n_triplets,3,))
+count = 0
 with open(tr, "r") as read:
 
     for line in read:
-        user, item, rating, _ = line.strip().split('\t')
+        user, item, rating = line.strip().split('\t')
         userId = int(user)
         itemId = int(item)
         rate = int(rating)
@@ -27,7 +51,7 @@ with open(tr, "r") as read:
 mae = 0.0
 rmse = 0.0
 k = 5
-binSize = n_ratings / k
+binSize = n_triplets / k
 for  i in range(k):
     if i == 0 :
         trainSet = X[binSize:,:]
