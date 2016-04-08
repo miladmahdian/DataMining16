@@ -3,7 +3,7 @@ import numpy as np
 
 
 class CFModel:
-    def __init__(self, n_items=1682, n_users=943, n_components=4, MAX_ITER=1000, lamd=0.05, eta=0.01, thresh = 0.01):
+    def __init__(self, n_items, n_users, n_components, MAX_ITER=200, lamd=0.05, eta=0.005, thresh = 0.01):
         self.n_components = n_components #number of lanent feature components
         self.MAX_ITER = MAX_ITER # number of iterations for grad descent
         self.lamd = lamd # lambda in the regularization
@@ -17,8 +17,16 @@ class CFModel:
         print ("Creating map")
         #Rui = np.zeros((self.n_users, self.n_items,))
         Rui = dict()
-        for index in range(X.shape[0]):
-            Rui[(int(X[index,0])-1, int(X[index,1])-1)] = X[index,2]
+        self.n_triplets = X.shape[0]
+        max = -1
+        min = 10000000000
+        for index in range(self.n_triplets):
+            Rui[(int(X[index,0]), int(X[index,1]))] = X[index,2]
+            if max <X[index,2]:
+                max = X[index,2]
+            if min > X[index,2]:
+                min = X[index,2]
+        print("max is %f and min is %f"%(max,min))
         return Rui
 
 
@@ -33,7 +41,6 @@ class CFModel:
 
         self.Pu = np.random.random((self.n_components, self.n_users))
         self.Qi = np.random.random((self.n_components, self.n_items))
-
         counter = 0
         e = 0.0
         ePrev = self.thresh + 1
@@ -47,10 +54,13 @@ class CFModel:
                     #rui = Rui[(u, i)]
                     if rui > 0:
                         cnt += 1
+                        #print (rui)
+                        #print(self.Pu[:, k[0]])
+                        #print(self.Qi[:, k[1]])
                         eij = rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]])
                         self.Pu[:, k[0]] += self.eta * (eij * self.Qi[:, k[1]] - self.lamd * self.Pu[:, k[0]])
                         self.Qi[:, k[1]] += self.eta * (eij * self.Pu[:, k[0]] - self.lamd * self.Qi[:, k[1]])
-                        e += (pow(eij,2)+self.lamd*(self.Pu[:, k[0]].T.dot(self.Pu[:, k[0]])+(self.Qi[:, k[1]].T.dot(self.Qi[:, k[1]]))))/self.n_items
+                        e += (pow(eij,2)+self.lamd*(self.Pu[:, k[0]].T.dot(self.Pu[:, k[0]])+(self.Qi[:, k[1]].T.dot(self.Qi[:, k[1]]))))/self.n_triplets
                         #e += pow(Rui[u, i] - self.Pu[:, u].T.dot(self.Qi[:, i]),2)/self.n_items
             counter += 1
             print (counter)
@@ -58,6 +68,9 @@ class CFModel:
         cti=time.clock()-start
         print ("Finished the gradient descent with time "+str(cti))
         print("cnt : "+str(cnt))
+    
+
+        
     def eval_MAE (self,Rui_te):
         mae = 0.0
         counter = 0
@@ -67,11 +80,11 @@ class CFModel:
                     #rui = Rui_te[(u, i)]
                     if rui > 0:
                         counter += 1
-                        mae += abs(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]))
+                        mae += abs(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]))/1e6
                         #if counter % 100 == 0:
                          #   print("Rating %f is predicted by %f"%(Rui_te[u, i],self.Pu[:, u].T.dot(self.Qi[:, i])))
 
-        return mae/counter
+        return mae*(1e6/counter)
 
     def eval_RMSE (self,Rui_te):
         rmse = 0.0
@@ -82,7 +95,7 @@ class CFModel:
                 #rui = Rui_te[(u, i)]
                 if rui > 0:
                     counter += 1
-                    rmse += math.pow(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]),2)
+                    rmse += math.pow((rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]])),2)
 
         return math.sqrt(rmse/counter)
 
