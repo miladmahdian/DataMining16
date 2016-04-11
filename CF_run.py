@@ -9,13 +9,17 @@ eta=0.01
 lamd=0.05
 count = 0
 MAX_ITER=10
-n_triplets = 1450933
+n_triplets = 48373586#1450933
 users = {};
 songs ={};
-user_counter=110000;
-song_counter=163206;
-##output = open('newfile.txt','w');
-##tr = "kaggle_visible_evaluation_triplets.txt";
+user_counter=1019318 #110000;
+song_counter=384546 #163206;
+
+##output = open('train_triplets_new.txt','w');
+##user_counter=0;
+##song_counter=0;
+##n_triplets = 0;
+##tr = "train_triplets.txt";
 ##print("Mapping each user and song to unique Index");
 ##with open(tr,"r") as f:
 ##
@@ -38,7 +42,7 @@ song_counter=163206;
 print("number of triplets is %d, users %d and songs %d"%(n_triplets,user_counter,song_counter)) 
 X = np.empty((n_triplets,3,))
 count = 0
-with open("newfile.txt", "r") as read:
+with open("train_triplets_new.txt", "r") as read:
 
     for line in read:
         user, item, rating = line.strip().split('\t')

@@ -80,11 +80,11 @@ class CFModel:
                     #rui = Rui_te[(u, i)]
                     if rui > 0:
                         counter += 1
-                        mae += abs(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]))/1e6
+                        mae += abs(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]))
                         #if counter % 100 == 0:
                          #   print("Rating %f is predicted by %f"%(Rui_te[u, i],self.Pu[:, u].T.dot(self.Qi[:, i])))
 
-        return mae*(1e6/counter)
+        return mae/counter
 
     def eval_RMSE (self,Rui_te):
         rmse = 0.0
