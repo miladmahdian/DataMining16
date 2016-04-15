@@ -3,12 +3,12 @@ import numpy as np
 #import ModelBased
 
 
-components=10
+components=6
 
 eta=0.01
 lamd=0.05
 count = 0
-MAX_ITER=10
+MAX_ITER=200
 n_triplets = 48373586#1450933
 users = {};
 songs ={};

@@ -66,7 +66,7 @@ class CFModel:
             print (counter)
             print (e)
         cti=time.clock()-start
-        print ("Finished the gradient descent with time "+str(cti))
+        print ("Finished the gradient descent with time "+str(cti)+ " sec and "+str(self.n_components)+" components.")
         print("cnt : "+str(cnt))
     
 
