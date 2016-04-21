@@ -209,20 +209,22 @@ for i in range(0, folds):
                         num += similarity * (user2_songcounts[int(song)] - Ruser2AvgCount);
                         den += similarity;
                         
-            prediction =0.0;
-            
-            if den !=0:
-                prediction = Ruser1AvgCount +  (num/den);      
-            else:
-                prediction = Ruser1AvgCount; 
+                prediction =0.0;
                 
-            if prediction <0:
-                prediction = 0;
+                if den !=0:
+                    prediction = Ruser1AvgCount +  (num/den);      
+                else:
+                    prediction = Ruser1AvgCount; 
+                    
+                if prediction <0:
+                    prediction = 0;
+                    
+                error = math.fabs(float(count) - prediction) 
+                sum +=error
                 
-            error = math.fabs(float(count) - prediction) 
-            sum +=error
     foldMAE = sum / N
     print '\n\nMAE for fold\n\n '+ str(i) + ' -> ' + str(foldMAE)
     avgMAE += foldMAE
     
 print 'Average MAE after 5 folds ' + str(avgMAE/5)
+                    
