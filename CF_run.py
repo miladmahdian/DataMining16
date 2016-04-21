@@ -3,7 +3,7 @@ import numpy as np
 #import ModelBased
 
 
-components=6
+components=3
 
 eta=0.01
 lamd=0.05

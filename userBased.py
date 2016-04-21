@@ -1,6 +1,6 @@
 import math;
 all_triplets = [];
-fileName = "kaggle_visible_evaluation_triplets.txt";
+fileName = "train_triplets.txt";
 songs = {}
 users = {}
 users_to_triplets = {}
@@ -163,6 +163,7 @@ for i in range(0, folds):
     
     sum =0;
     N =0;
+    den =0.0;
     with open("testing.txt","r") as file:
         for line in file:
             N +=1;
