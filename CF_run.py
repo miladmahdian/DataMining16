@@ -3,54 +3,28 @@ import numpy as np
 #import ModelBased
 
 
-components=3
+components=5
 
 eta=0.01
 lamd=0.05
 count = 0
 MAX_ITER=200
-n_triplets = 48373586#1450933
-users = {};
-songs ={};
-user_counter=1019318 #110000;
-song_counter=384546 #163206;
 
-##output = open('train_triplets_new.txt','w');
-##user_counter=0;
-##song_counter=0;
-##n_triplets = 0;
-##tr = "train_triplets.txt";
-##print("Mapping each user and song to unique Index");
-##with open(tr,"r") as f:
-##
-##        lines = '';
-##        for line in f:
-##            n_triplets+= 1 
-##            user,song,count=line.strip().split('\t')
-##            if song not in songs:
-##                songs[song] = song_counter;
-##                song_counter = song_counter+1;
-##                
-##            if user not in users:
-##                users[user] = user_counter;
-##                user_counter = user_counter+1;
-##
-##            output.write( str(users[user]) +'\t'+ str(songs[song]) + '\t' + count+'\n')
-##                
-##        print("Created Tested and Training Files");
-##        output.close();
-print("number of triplets is %d, users %d and songs %d"%(n_triplets,user_counter,song_counter)) 
+n_triplets = 7858609#48373586#1450933
+user_counter=26386#1019318 #110000;
+song_counter=297053#384546 #163206;
+
+print("number of triplets is %d, users %d and songs %d"%(n_triplets,user_counter,song_counter))
 X = np.empty((n_triplets,3,))
 count = 0
-with open("train_triplets_new.txt", "r") as read:
-
-    for line in read:
-        user, item, rating = line.strip().split('\t')
-        userId = int(user)
-        itemId = int(item)
-        rate = 1+math.log(int(rating))
-        X[count,:] = np.array([userId,itemId,rate])
-        count += 1
+with open("train_triplets_concise.txt","r") as f:
+        for line in f:
+            user, item, rating = line.strip().split('\t')
+            userId = int(user)
+            itemId = int(item)
+            rate = 1+math.log(int(rating))
+            X[count,:] = np.array([userId,itemId,rate])
+            count += 1
 
 mae = 0.0
 rmse = 0.0
