@@ -3,16 +3,16 @@ import numpy as np
 #import ModelBased
 
 
-components=5
+components = 7
 
 eta=0.01
 lamd=0.05
 count = 0
 MAX_ITER=200
 
-n_triplets = 7858609#48373586#1450933
-user_counter=26386#1019318 #110000;
-song_counter=297053#384546 #163206;
+n_triplets = 7858609 #unpruned: 48373586
+user_counter=26386  #unpruned: 1019318 
+song_counter=297053  #unpruned: 384546 
 
 print("number of triplets is %d, users %d and songs %d"%(n_triplets,user_counter,song_counter))
 X = np.empty((n_triplets,3,))
@@ -46,14 +46,7 @@ for  i in range(k):
         tr1 = Xs[:i * binSize,:]
         tr2 = Xs[(i + 1) * binSize:,:]
         trainSet = np.vstack([tr1,tr2])
-    #P = np.random.random(( n_users,10))
-    #Q = np.random.random(( n_items,10))
-    #nP, nQ = ModelBased.matrix_factorization(trainSet, P, Q, 10)
-    #temp = 0.0
-    #for u in np.arange(n_users):
-     #   for i in np.arange(n_items):
-            #if testSet[u, i] > 0:
-      #          temp += abs(testSet[u, i] - nP[:, u].T.dot(nQ[:, i]))
+
 
     cf = CF_model.CFModel(n_items=song_counter, n_users=user_counter, n_components=components)
     Rui_tr = cf.createMap(trainSet)
