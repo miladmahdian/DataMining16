@@ -15,7 +15,6 @@ class CFModel:
 
     def createMap(self,X):
         print ("Creating map")
-        #Rui = np.zeros((self.n_users, self.n_items,))
         Rui = dict()
         self.n_triplets = X.shape[0]
         max = -1
@@ -36,8 +35,6 @@ class CFModel:
     def run(self,Rui):
         start=time.clock()
         self.Rui = Rui
-        #        components = [1.0/self.n_components]* self.n_components
-        #        self.Pu = dict.fromkeys(range(self.n_users),components)
 
         self.Pu = np.random.random((self.n_components, self.n_users))
         self.Qi = np.random.random((self.n_components, self.n_items))
@@ -48,20 +45,15 @@ class CFModel:
             ePrev = e
             e = 0
             cnt = 0
-            #for u in np.arange(self.n_users):
-            #    for i in np.arange(self.n_items):
+
             for k, rui in Rui.iteritems():
-                    #rui = Rui[(u, i)]
                     if rui > 0:
                         cnt += 1
-                        #print (rui)
-                        #print(self.Pu[:, k[0]])
-                        #print(self.Qi[:, k[1]])
+  
                         eij = rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]])
                         self.Pu[:, k[0]] += self.eta * (eij * self.Qi[:, k[1]] - self.lamd * self.Pu[:, k[0]])
                         self.Qi[:, k[1]] += self.eta * (eij * self.Pu[:, k[0]] - self.lamd * self.Qi[:, k[1]])
                         e += (pow(eij,2)+self.lamd*(self.Pu[:, k[0]].T.dot(self.Pu[:, k[0]])+(self.Qi[:, k[1]].T.dot(self.Qi[:, k[1]]))))/self.n_triplets
-                        #e += pow(Rui[u, i] - self.Pu[:, u].T.dot(self.Qi[:, i]),2)/self.n_items
             counter += 1
             print (counter)
             print (e)
@@ -74,25 +66,19 @@ class CFModel:
     def eval_MAE (self,Rui_te):
         mae = 0.0
         counter = 0
-        #for u in np.arange(self.n_users):
-        #        for i in np.arange(self.n_items):
+
         for k, rui in Rui_te.iteritems():
-                    #rui = Rui_te[(u, i)]
                     if rui > 0:
                         counter += 1
                         mae += abs(rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]]))
-                        #if counter % 100 == 0:
-                         #   print("Rating %f is predicted by %f"%(Rui_te[u, i],self.Pu[:, u].T.dot(self.Qi[:, i])))
+
 
         return mae/counter
 
     def eval_RMSE (self,Rui_te):
         rmse = 0.0
         counter = 0
-        #for u in np.arange(self.n_users):
-        #    for i in np.arange(self.n_items):
         for k, rui in Rui_te.iteritems():
-                #rui = Rui_te[(u, i)]
                 if rui > 0:
                     counter += 1
                     rmse += math.pow((rui - self.Pu[:, k[0]].T.dot(self.Qi[:, k[1]])),2)
