@@ -3,21 +3,37 @@ import numpy as np
 #import ModelBased
 
 
-components = 7
+components = 10
+pruning = True # True for pruned dataset, False for the whole dataset
+
+tr = ""
 
 eta=0.01
 lamd=0.05
 count = 0
 MAX_ITER=200
-
-n_triplets = 7858609 #unpruned: 48373586
-user_counter=26386  #unpruned: 1019318 
-song_counter=297053  #unpruned: 384546 
-
-print("number of triplets is %d, users %d and songs %d"%(n_triplets,user_counter,song_counter))
+user_counter=0;
+song_counter=0;
+n_triplets = 0;
+dataset = ""
+if pruning:
+    tr = 'train_triplets_concise.txt'    
+    n_triplets = 7858609 #unpruned: 48373586
+    user_counter=26386  #unpruned: 1019318 
+    song_counter=297053  #unpruned: 384546
+    dataset = "pruned"
+else:
+    tr = 'train_triplets_new.txt'    
+    n_triplets = 48373586
+    user_counter= 1019318 
+    song_counter= 384546
+    dataset = "whole"
+    
+    
+print("For %s dataset number of triplets is %d, users %d and songs %d"%(dataset,n_triplets,user_counter,song_counter))
 X = np.empty((n_triplets,3,))
 count = 0
-with open("train_triplets_concise.txt","r") as f:
+with open(tr,"r") as f:
         for line in f:
             user, item, rating = line.strip().split('\t')
             userId = int(user)
