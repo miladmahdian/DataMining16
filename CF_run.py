@@ -4,7 +4,7 @@ import numpy as np
 
 
 components = 10
-pruning = True # True for pruned dataset, False for the whole dataset
+pruning = False # True for pruned dataset, False for the whole dataset
 
 tr = ""
 

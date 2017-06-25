@@ -4,6 +4,11 @@ import math
 #the input is the dataset "train_triplets.txt"
 #the output is the pruned dataset "train_triplets_concise.txt"
 pruning = True; # True for pruned dataset, False for the whole dataset
+n_triplets = 0
+user_counter = 0
+song_counter = 0
+users = {};
+songs ={};
 if pruning:      
     users_to_triplets = {}
     with open("train_triplets.txt","r") as f:
@@ -21,11 +26,7 @@ if pruning:
          
 
 
-    n_triplets = 0
-    user_counter = 0
-    song_counter = 0
-    users = {};
-    songs ={};
+
     output = open('train_triplets_concise.txt','w');
     for user,triplets_of_user in users_to_triplets.iteritems():
         length_of_user_triplets = len(triplets_of_user)
@@ -48,7 +49,7 @@ if pruning:
                     
     print("Created Training File");
     output.close();
-    else:
+else:
         
         output = open('train_triplets_new.txt','w');
         print("Mapping each user and song to unique Index");
